@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <p id="quote-text">Загрузка цитаты...</p>
+      <span id="quote-author"></span>
+      <form id="messageForm">
+        <input
+          id="textInput"
+          type="text"
+          placeholder="Что нужно сделать?"
+          required
+        />
+        <button id="btn">Отправить</button>
+      </form>
+      <ul id="tasks-list"></ul>
+      <div id="filter-buttons">
+        <button id="filter-all">Все</button>
+        <button id="filter-active">Активные</button>
+        <button id="filter-completed">Завершённые</button>
+      </div>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
