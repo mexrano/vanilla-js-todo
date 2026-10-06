@@ -45,7 +45,7 @@ function App() {
     localStorage.setItem("todos", JSON.stringify(clearFilter));
   }
   return (
-    <div>
+    <div className="todo-app">
       <TodoInput onAdd={handleAddTodo} />
       <TodoFooter
         setFilter={setFilter}
