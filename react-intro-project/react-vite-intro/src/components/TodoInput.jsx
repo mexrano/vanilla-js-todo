@@ -2,20 +2,26 @@ import { useState } from "react";
 
 function TodoInput({ onAdd }) {
   const [name, setName] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (name.trim() === "") {
+      return;
+    }
+    onAdd(name.trim());
+    setName("");
+  }
   return (
-    <div>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <button
-        onClick={() => {
-          if (name.trim() === "") return;
-
-          setName("");
-          onAdd(name);
-        }}
-      >
+    <form onSubmit={handleSubmit} className="todo-input-form">
+      <input
+        placeholder="Что нужно сделать?"
+        className="todo-input"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button type="submit" className="todo-add-btn">
         Добавить
       </button>
-    </div>
+    </form>
   );
 }
 export default TodoInput;

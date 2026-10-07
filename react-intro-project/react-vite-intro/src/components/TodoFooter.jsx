@@ -1,18 +1,44 @@
-function TodoFooter({ setFilter, count, onClear }) {
+function TodoFooter({ setFilter, count, onClear, filter }) {
   return (
-    <div>
-      <span>Осталось: {count}</span>
+    <footer className="todo-footer">
+      <span className="todo-count">Осталось: {count}</span>
+      <div className="todo-filters">
+        <button
+          className={
+            filter === "all" ? "todo-filter-btn active" : "todo-filter-btn"
+          }
+          onClick={() => setFilter("all")}
+        >
+          Все
+        </button>
+        <button
+          className={
+            filter === "active" ? "todo-filter-btn active" : "todo-filter-btn"
+          }
+          onClick={() => setFilter("active")}
+        >
+          Активные
+        </button>
+        <button
+          className={
+            filter === "completed"
+              ? "todo-filter-btn active"
+              : "todo-filter-btn"
+          }
+          onClick={() => setFilter("completed")}
+        >
+          Завершённые
+        </button>
+      </div>
       <button
+        className="todo-clear-btn"
         onClick={() => {
           onClear();
         }}
       >
         Очистить завершённые
       </button>
-      <button onClick={() => setFilter("all")}>Все</button>
-      <button onClick={() => setFilter("active")}>Активные</button>
-      <button onClick={() => setFilter("completed")}>Завершённые</button>
-    </div>
+    </footer>
   );
 }
 export default TodoFooter;

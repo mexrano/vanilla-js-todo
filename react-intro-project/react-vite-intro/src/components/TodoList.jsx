@@ -4,7 +4,7 @@ function TodoList({ items, onToggle, onDelete }) {
   return items.length === 0 ? (
     <p>Список пуст, добавь тренировку</p>
   ) : (
-    <ul>
+    <ul className="todo-list">
       {items.map((elem) => (
         <TodoItem
           key={elem.id}

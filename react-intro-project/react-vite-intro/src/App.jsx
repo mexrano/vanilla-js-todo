@@ -5,57 +5,58 @@ import TodoList from "./components/TodoList";
 
 function App() {
   const [filter, setFilter] = useState("all");
-  const [item, setItem] = useState(
-    JSON.parse(localStorage.getItem("todos")) || [],
+  const [items, setItems] = useState(
+    () => JSON.parse(localStorage.getItem("todos")) || [],
   );
 
-  let filteredItems = item;
+  let filteredItems = items;
   if (filter === "active") {
-    filteredItems = item.filter((it) => it.completed === false);
+    filteredItems = items.filter((it) => it.completed === false);
   }
   if (filter === "completed") {
-    filteredItems = item.filter((it) => it.completed === true);
+    filteredItems = items.filter((it) => it.completed === true);
   }
-  const result = item.filter((it) => it.completed === false);
+  const result = items.filter((it) => it.completed === false);
 
   function handleAddTodo(title) {
     const updated = [
-      ...item,
+      ...items,
       { id: Date.now(), title: title, completed: false },
     ];
     localStorage.setItem("todos", JSON.stringify(updated));
-    setItem(updated);
+    setItems(updated);
   }
   function handleDelete(id) {
-    const filtered = item.filter((it) => it.id !== id);
-    setItem(filtered);
+    const filtered = items.filter((it) => it.id !== id);
+    setItems(filtered);
     localStorage.setItem("todos", JSON.stringify(filtered));
   }
   function handleToggle(id) {
-    const map = item.map((it) =>
+    const map = items.map((it) =>
       it.id === id ? { ...it, completed: !it.completed } : it,
     );
-    setItem(map);
+    setItems(map);
     localStorage.setItem("todos", JSON.stringify(map));
   }
   function handleClearCompleted() {
-    const clearFilter = item.filter((it) => it.completed === false);
+    const clearFilter = items.filter((it) => it.completed === false);
 
-    setItem(clearFilter);
+    setItems(clearFilter);
     localStorage.setItem("todos", JSON.stringify(clearFilter));
   }
   return (
     <div className="todo-app">
       <TodoInput onAdd={handleAddTodo} />
-      <TodoFooter
-        setFilter={setFilter}
-        count={result.length}
-        onClear={handleClearCompleted}
-      />
       <TodoList
         items={filteredItems}
         onToggle={handleToggle}
         onDelete={handleDelete}
+      />
+      <TodoFooter
+        filter={filter}
+        setFilter={setFilter}
+        count={result.length}
+        onClear={handleClearCompleted}
       />
     </div>
   );
